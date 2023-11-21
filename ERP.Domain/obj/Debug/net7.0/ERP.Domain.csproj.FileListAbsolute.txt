@@ -1,0 +1,12 @@
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Domain/bin/Debug/net7.0/ERP.Domain.deps.json
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Domain/bin/Debug/net7.0/ERP.Domain.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Domain/bin/Debug/net7.0/ERP.Domain.pdb
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Domain/obj/Debug/net7.0/ERP.Domain.csproj.AssemblyReference.cache
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Domain/obj/Debug/net7.0/ERP.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Domain/obj/Debug/net7.0/ERP.Domain.AssemblyInfoInputs.cache
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Domain/obj/Debug/net7.0/ERP.Domain.AssemblyInfo.cs
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Domain/obj/Debug/net7.0/ERP.Domain.csproj.CoreCompileInputs.cache
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Domain/obj/Debug/net7.0/ERP.Domain.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Domain/obj/Debug/net7.0/refint/ERP.Domain.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Domain/obj/Debug/net7.0/ERP.Domain.pdb
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Domain/obj/Debug/net7.0/ref/ERP.Domain.dll

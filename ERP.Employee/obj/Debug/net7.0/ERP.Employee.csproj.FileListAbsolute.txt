@@ -1,0 +1,12 @@
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Employee/bin/Debug/net7.0/ERP.Employee.deps.json
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Employee/bin/Debug/net7.0/ERP.Employee.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Employee/bin/Debug/net7.0/ERP.Employee.pdb
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Employee/obj/Debug/net7.0/ERP.Employee.csproj.AssemblyReference.cache
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Employee/obj/Debug/net7.0/ERP.Employee.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Employee/obj/Debug/net7.0/ERP.Employee.AssemblyInfoInputs.cache
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Employee/obj/Debug/net7.0/ERP.Employee.AssemblyInfo.cs
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Employee/obj/Debug/net7.0/ERP.Employee.csproj.CoreCompileInputs.cache
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Employee/obj/Debug/net7.0/ERP.Employee.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Employee/obj/Debug/net7.0/refint/ERP.Employee.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Employee/obj/Debug/net7.0/ERP.Employee.pdb
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Employee/obj/Debug/net7.0/ref/ERP.Employee.dll

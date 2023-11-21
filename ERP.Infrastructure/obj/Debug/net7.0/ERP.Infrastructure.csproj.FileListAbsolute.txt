@@ -1,0 +1,12 @@
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Infrastructure/bin/Debug/net7.0/ERP.Infrastructure.deps.json
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Infrastructure/bin/Debug/net7.0/ERP.Infrastructure.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Infrastructure/bin/Debug/net7.0/ERP.Infrastructure.pdb
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Infrastructure/obj/Debug/net7.0/ERP.Infrastructure.csproj.AssemblyReference.cache
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Infrastructure/obj/Debug/net7.0/ERP.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Infrastructure/obj/Debug/net7.0/ERP.Infrastructure.AssemblyInfoInputs.cache
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Infrastructure/obj/Debug/net7.0/ERP.Infrastructure.AssemblyInfo.cs
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Infrastructure/obj/Debug/net7.0/ERP.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Infrastructure/obj/Debug/net7.0/ERP.Infrastructure.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Infrastructure/obj/Debug/net7.0/refint/ERP.Infrastructure.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Infrastructure/obj/Debug/net7.0/ERP.Infrastructure.pdb
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Infrastructure/obj/Debug/net7.0/ref/ERP.Infrastructure.dll

@@ -1,0 +1,15 @@
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/bin/Debug/net7.0/ERP.Order.deps.json
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/bin/Debug/net7.0/ERP.Order.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/bin/Debug/net7.0/ERP.Order.pdb
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/bin/Debug/net7.0/ERP.Inventory.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/bin/Debug/net7.0/ERP.Inventory.pdb
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/obj/Debug/net7.0/ERP.Order.csproj.AssemblyReference.cache
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/obj/Debug/net7.0/ERP.Order.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/obj/Debug/net7.0/ERP.Order.AssemblyInfoInputs.cache
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/obj/Debug/net7.0/ERP.Order.AssemblyInfo.cs
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/obj/Debug/net7.0/ERP.Order.csproj.CoreCompileInputs.cache
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/obj/Debug/net7.0/ERP.Order.csproj.CopyComplete
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/obj/Debug/net7.0/ERP.Order.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/obj/Debug/net7.0/refint/ERP.Order.dll
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/obj/Debug/net7.0/ERP.Order.pdb
+/Users/mac/Projects/Development/dotNet/ERPPlatform/ERP.Order/obj/Debug/net7.0/ref/ERP.Order.dll
