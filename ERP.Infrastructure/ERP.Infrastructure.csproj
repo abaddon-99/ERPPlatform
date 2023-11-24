@@ -12,4 +12,7 @@
     <Folder Include="Repositories/" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="TestFolder\" />
+  </ItemGroup>
 </Project>
