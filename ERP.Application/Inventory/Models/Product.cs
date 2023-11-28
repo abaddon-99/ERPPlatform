@@ -1,5 +1,4 @@
-﻿using System;
-namespace ERP.Inventory.Models
+﻿namespace ERP.Application.Inventory.Models
 {
     public class Product
     {

@@ -1,5 +1,4 @@
-﻿using System;
-namespace ERP.Employee.Models
+﻿namespace ERP.Application.Employees.Models
 {
     public class Employee
     {

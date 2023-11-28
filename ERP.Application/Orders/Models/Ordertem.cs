@@ -1,6 +1,6 @@
-﻿using ERP.Inventory.Models;
+﻿using ERP.Application.Inventory.Models;
 
-namespace ERP.Order.Models
+namespace ERP.Application.Orders.Models
 {
     public class OrderItem
     {

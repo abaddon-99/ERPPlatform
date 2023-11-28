@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ERP.Order.Models
+namespace ERP.Application.Orders.Models
 {
     public class Customer
     {
