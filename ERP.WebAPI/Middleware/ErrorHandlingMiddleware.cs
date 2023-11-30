@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using ERP.WebAPI.Models;
+using ERP.Domain.Entities;
 using Newtonsoft.Json;
 using Serilog;
 

@@ -1,4 +1,4 @@
-﻿namespace ERP.Application.Employees.Models
+﻿namespace ERP.Domain.Entities.Employees
 {
     public class Employee
     {

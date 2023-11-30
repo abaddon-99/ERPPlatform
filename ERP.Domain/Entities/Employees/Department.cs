@@ -1,5 +1,4 @@
-﻿using System;
-namespace ERP.Application.Employees.Models
+﻿namespace ERP.Domain.Entities.Employees
 {
     public class Department
     {

@@ -7,9 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Employees\Services\" />
-      <Folder Include="Inventory\Services\" />
-      <Folder Include="Orders\Services\" />
+      <Folder Include="Services\" />
+      <Folder Include="Services\Employees\" />
+      <Folder Include="Services\Inventory\" />
+      <Folder Include="Services\Orders\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Services\" />
+      <None Remove="Services\Employees\" />
+      <None Remove="Services\Inventory\" />
+      <None Remove="Services\Orders\" />
+    </ItemGroup>
 </Project>

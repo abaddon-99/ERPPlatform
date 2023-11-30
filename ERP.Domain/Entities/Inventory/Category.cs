@@ -1,5 +1,4 @@
-﻿using System;
-namespace ERP.Application.Inventory.Models
+﻿namespace ERP.Domain.Entities.Inventory
 {
     public class Category
     {

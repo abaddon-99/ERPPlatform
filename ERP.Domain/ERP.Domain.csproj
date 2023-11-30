@@ -7,7 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models/" />
+    <Folder Include="Entities\" />
+    <Folder Include="Entities\Inventory\" />
+    <Folder Include="Entities\Employees\" />
+    <Folder Include="Entities\Orders\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Entities\" />
+    <None Remove="Entities\Inventory\" />
+    <None Remove="Entities\Employees\" />
+    <None Remove="Entities\Orders\" />
+  </ItemGroup>
 </Project>
