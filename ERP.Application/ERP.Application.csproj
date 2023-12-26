@@ -10,7 +10,6 @@
       <Folder Include="Services\" />
       <Folder Include="Services\Employees\" />
       <Folder Include="Services\Inventory\" />
-      <Folder Include="Services\Orders\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -18,5 +17,9 @@
       <None Remove="Services\Employees\" />
       <None Remove="Services\Inventory\" />
       <None Remove="Services\Orders\" />
+      <None Remove="Interfaces\" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\ERP.Domain\ERP.Domain.csproj" />
     </ItemGroup>
 </Project>

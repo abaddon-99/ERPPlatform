@@ -2,7 +2,7 @@
 {
     public class Customer
     {
-        public int CustomerID { get; set; }
+        public int Id { get; set; }
 
         // Customer Information
         public required string FirstName { get; set; }
@@ -12,7 +12,7 @@
         public required string Address { get; set; }
 
         // Relationship Navigation Property
-        public ICollection<Order>? Orders { get; set; }
+        public ICollection<SalesOrder>? SalesOrders { get; set; }
     }
 
 }

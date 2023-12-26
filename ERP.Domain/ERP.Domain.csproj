@@ -10,7 +10,6 @@
     <Folder Include="Entities\" />
     <Folder Include="Entities\Inventory\" />
     <Folder Include="Entities\Employees\" />
-    <Folder Include="Entities\Orders\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,5 +17,6 @@
     <None Remove="Entities\Inventory\" />
     <None Remove="Entities\Employees\" />
     <None Remove="Entities\Orders\" />
+    <None Remove="Enums\" />
   </ItemGroup>
 </Project>

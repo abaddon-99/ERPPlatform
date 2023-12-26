@@ -2,7 +2,7 @@
 {
     public class Product
     {
-        public int ProductID { get; set; }
+        public int Id { get; set; }
 
         // Basic Information
         public required string Name { get; set; }
@@ -22,11 +22,11 @@
         public DateTime? LastUpdated { get; set; }
 
         // Relationship Navigation Properties
-        public int SupplierID { get; set; }
-        public required Supplier Supplier { get; set; }
+        public int SupplierId { get; set; }
+        public Supplier Supplier { get; set; }
 
-        public int CategoryID { get; set; }
-        public required Category Category { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
         // Methods
 
