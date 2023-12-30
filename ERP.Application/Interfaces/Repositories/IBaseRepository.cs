@@ -2,13 +2,13 @@
 
 namespace ERP.Application.Interfaces.Repositories
 {
-    public interface IBaseRepository<T>
+    public interface IBaseRepository<T> : IDisposable
     {
-        IEnumerable<T> GetAll();
-        T Create(T value);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T> CreateAsync(T value);
         T Update(T value);
-        bool Remove(T value);
-        T? GetById(int id);
-        bool IsExist(int id);
+        void Remove(T value);
+        Task<T?> GetByIdAsync(int id);
+        Task<bool> IsExistAsync(int id);
     }
 }

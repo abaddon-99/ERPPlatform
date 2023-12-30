@@ -21,12 +21,14 @@ try
 
     builder.Services.AddControllers()
         .AddJsonOptions(o => o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+    
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
     builder.Services.AddDbContext<ApplicationDbContext>();
 
+    builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
     builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
     builder.Services.AddScoped<ISalesOrderService, SalesOrderService>();
     builder.Services.AddScoped<ICustomerService, CustomerService>();

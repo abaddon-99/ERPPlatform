@@ -17,38 +17,46 @@ namespace ERP.WebAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Customer>> Get()
+        public async Task<ActionResult<IEnumerable<Customer>>> Get()
         {
-            return Ok(_customerService.GetAll());
+            return Ok(await _customerService.GetAllAsync());
         }
 
         // GET: api/Customers/5
         [HttpGet("get/{id}")]
-        public ActionResult<Customer> Get(int id)
+        public async Task<ActionResult<Customer>> Get(int id)
         {
-            if (!_customerService.IsExist(id))
+            var idIsExist = await _customerService.IsExistAsync(id);
+            if (!idIsExist)
             {
                 return NotFound();
             }
-            return _customerService.GetById(id);
+            var customer = await _customerService.GetByIdAsync(id);
+            if (customer is null)
+            {
+                return NotFound();
+            }
+
+            return customer;
         }
 
         // POST: api/Customers
         [HttpPost]
-        public ActionResult<Customer> Post(Customer customer)
+        public async Task<ActionResult<Customer>> Post(Customer customer)
         {
-            return Ok(_customerService.Create(customer));
+            return Ok(await _customerService.CreateAsync(customer));
         }
 
         // PUT: api/Customers/5
         [HttpPut("{id}")]
-        public ActionResult<Customer> Put(int id, Customer customer)
+        public async Task<ActionResult<Customer>> Put(int id, Customer customer)
         {
             if (id != customer.Id)
             {
                 return BadRequest();
             }
-            if (!_customerService.IsExist(id))
+            var idIsExist = await _customerService.IsExistAsync(id);
+            if (!idIsExist)
             {
                 return NotFound();
             }
@@ -58,16 +66,16 @@ namespace ERP.WebAPI.Controllers
 
         // DELETE: api/Customers/5
         [HttpDelete("{id}")]
-        public ActionResult<bool> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var customer = _customerService.GetById(id);
+            var customer = await _customerService.GetByIdAsync(id);
             if (customer == null)
             {
                 return NotFound();
             }
 
-            var isDeleted = _customerService.Remove(customer);
-            return Ok(isDeleted);
+            _customerService.Remove(customer);
+            return NoContent();
         }
     }
 }

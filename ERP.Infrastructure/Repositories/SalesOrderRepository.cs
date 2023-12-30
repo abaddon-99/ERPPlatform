@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Infrastructure.Repositories;
 
-public class SalesOrderRepository : ISalesOrderRepository
+public class SalesOrderRepository : ISalesOrderRepository, IAsyncDisposable
 {
     private readonly ApplicationDbContext _applicationDbContext;
 
@@ -14,50 +14,77 @@ public class SalesOrderRepository : ISalesOrderRepository
         _applicationDbContext = applicationDbContext;
     }
 
-    public IEnumerable<SalesOrder> GetAll()
+    public async Task<IEnumerable<SalesOrder>> GetAllAsync()
     {
-        if (_applicationDbContext.SalesOrders != null)
+        if (_applicationDbContext.SalesOrders is null)
         {
-            return _applicationDbContext.SalesOrders.Include(c => c.Customer).ToList();
+            throw new NullReferenceException("SalesOrders should not be null");
         }
-
-        return new List<SalesOrder>();
+        
+        return await _applicationDbContext.SalesOrders.Include(c => c.Customer).ToListAsync();
     }
 
-    public SalesOrder Create(SalesOrder order)
+    public async Task<SalesOrder> CreateAsync(SalesOrder order)
     {
-        _applicationDbContext.SalesOrders?.Add(order);
-        _applicationDbContext.SaveChanges();
+        if (_applicationDbContext.SalesOrders is null)
+        {
+            throw new NullReferenceException("SalesOrders should not be null");
+        }
+        
+        await _applicationDbContext.SalesOrders.AddAsync(order);
 
         return order;
     }
 
     public SalesOrder Update(SalesOrder order)
     {
-        _applicationDbContext.SalesOrders?.Update(order);
-        _applicationDbContext.SaveChanges();
+        if (_applicationDbContext.SalesOrders is null)
+        {
+            throw new NullReferenceException("SalesOrders should not be null");
+        }
+        
+        _applicationDbContext.SalesOrders.Update(order);
 
         return order;
     }
 
-    public bool Remove(SalesOrder order)
+    public void Remove(SalesOrder order)
     {
-        _applicationDbContext.SalesOrders?.Remove(order);
-        if (_applicationDbContext.SaveChanges() > 0)
+        if (_applicationDbContext.SalesOrders is null)
         {
-            return true;
+            throw new NullReferenceException("SalesOrders should not be null");
+        }
+        
+        _applicationDbContext.SalesOrders.Remove(order);
+    }
+
+    public async Task<SalesOrder?> GetByIdAsync(int id)
+    {
+        if (_applicationDbContext.SalesOrders is null)
+        {
+            throw new NullReferenceException("SalesOrders should not be null");
         }
 
-        return false;
+        return await _applicationDbContext.SalesOrders.Include(o => o.Customer).FirstOrDefaultAsync(o => o.Id.Equals(id));
     }
 
-    public SalesOrder? GetById(int id)
+    public async Task<bool> IsExistAsync(int id)
     {
-        return _applicationDbContext.SalesOrders?.Include(o => o.Customer).FirstOrDefault(o => o.Id.Equals(id));
+        if (_applicationDbContext.SalesOrders is null)
+        {
+            throw new NullReferenceException("SalesOrders should not be null");
+        }
+
+        return await _applicationDbContext.SalesOrders.AnyAsync(order => order.Id.Equals(id));
     }
 
-    public bool IsExist(int id)
+    public void Dispose()
     {
-        return (_applicationDbContext.SalesOrders?.Any(order => order.Id == id)).GetValueOrDefault();
+        _applicationDbContext.Dispose();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await _applicationDbContext.DisposeAsync();
     }
 }

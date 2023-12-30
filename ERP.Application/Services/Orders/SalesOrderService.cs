@@ -6,41 +6,47 @@ namespace ERP.Application.Services.Orders;
 
 public class SalesOrderService : ISalesOrderService
 {
-    private readonly ISalesOrderRepository _salesOrderRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public SalesOrderService(ISalesOrderRepository salesOrderRepository)
+    public SalesOrderService(IUnitOfWork unitOfWork)
     {
-        _salesOrderRepository = salesOrderRepository;
+        _unitOfWork = unitOfWork;
     }
 
-    public SalesOrder Create(SalesOrder order)
+    public async Task<SalesOrder> CreateAsync(SalesOrder order)
     {
-        return _salesOrderRepository.Create(order);
+        await _unitOfWork.SalesOrders.CreateAsync(order);
+        await _unitOfWork.SaveChangesAsync();
+
+        return order;
     }
 
     public SalesOrder Update(SalesOrder order)
     {
-        return _salesOrderRepository.Update(order);
-    }
-
-    public bool Remove(SalesOrder order)
-    {
-        return _salesOrderRepository.Remove(order);
-    }
-
-    public IEnumerable<SalesOrder> GetAll()
-    {
-        return _salesOrderRepository.GetAll();
-    }
-
-    public SalesOrder GetById(int id)
-    {
-        var order = _salesOrderRepository.GetById(id);
+        _unitOfWork.SalesOrders.Update(order);
+        _unitOfWork.SaveChangesAsync();
+        
         return order;
     }
 
-    public bool IsExist(int id)
+    public void Remove(SalesOrder order)
     {
-        return _salesOrderRepository.IsExist(id);
+        _unitOfWork.SalesOrders.Remove(order);
+        _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<SalesOrder>> GetAllAsync()
+    {
+        return await _unitOfWork.SalesOrders.GetAllAsync();
+    }
+
+    public async Task<SalesOrder?> GetByIdAsync(int id)
+    {
+        return await _unitOfWork.SalesOrders.GetByIdAsync(id);
+    }
+
+    public async Task<bool> IsExistAsync(int id)
+    {
+        return await _unitOfWork.SalesOrders.IsExistAsync(id);
     }
 }

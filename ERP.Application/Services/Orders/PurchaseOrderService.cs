@@ -6,41 +6,44 @@ namespace ERP.Application.Services.Orders;
 
 public class PurchaseOrderService : IPurchaseOrderService
 {
-    private readonly IPurchaseOrderRepository _purchaseOrderRepository;
-
-    public PurchaseOrderService(IPurchaseOrderRepository purchaseOrderRepository)
+    private readonly IUnitOfWork _unitOfWork;
+    public PurchaseOrderService(IUnitOfWork unitOfWork)
     {
-        _purchaseOrderRepository = purchaseOrderRepository;
+        _unitOfWork = unitOfWork;
     }
 
-    public PurchaseOrder Create(PurchaseOrder order)
+    public async Task<PurchaseOrder> CreateAsync(PurchaseOrder order)
     {
-        return _purchaseOrderRepository.Create(order);
+        await _unitOfWork.PurchaseOrders.CreateAsync(order);
+        await _unitOfWork.SaveChangesAsync(); // Add try catch and do rollback
+        return order;
     }
 
     public PurchaseOrder Update(PurchaseOrder order)
     {
-        return _purchaseOrderRepository.Update(order);
-    }
-
-    public bool Remove(PurchaseOrder order)
-    {
-        return _purchaseOrderRepository.Remove(order);
-    }
-
-    public IEnumerable<PurchaseOrder> GetAll()
-    {
-        return _purchaseOrderRepository.GetAll();
-    }
-
-    public PurchaseOrder GetById(int id)
-    {
-        var order = _purchaseOrderRepository.GetById(id);
+        _unitOfWork.PurchaseOrders.Update(order);
+        _unitOfWork.SaveChangesAsync();
         return order;
     }
 
-    public bool IsExist(int id)
+    public void Remove(PurchaseOrder order)
     {
-        return _purchaseOrderRepository.IsExist(id);
+        _unitOfWork.PurchaseOrders.Remove(order);
+        _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<PurchaseOrder>> GetAllAsync()
+    {
+        return await _unitOfWork.PurchaseOrders.GetAllAsync();
+    }
+
+    public async Task<PurchaseOrder?> GetByIdAsync(int id)
+    {
+        return await _unitOfWork.PurchaseOrders.GetByIdAsync(id);
+    }
+
+    public async Task<bool> IsExistAsync(int id)
+    {
+        return await _unitOfWork.PurchaseOrders.IsExistAsync(id);
     }
 }

@@ -7,40 +7,45 @@ namespace ERP.Application.Services.Orders;
 
 public class CustomerService : ICustomerService
 {
-    private readonly ICustomerRepository _customerRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CustomerService(ICustomerRepository customerRepository)
+    public CustomerService(IUnitOfWork unitOfWork)
     {
-        _customerRepository = customerRepository;
+        _unitOfWork = unitOfWork;
     }
 
-    public Customer Create(Customer customer)
+    public async Task<Customer> CreateAsync(Customer customer)
     {
-        return _customerRepository.Create(customer);
+        await _unitOfWork.Customers.CreateAsync(customer);
+        await _unitOfWork.SaveChangesAsync();
+        return customer;
     }
 
     public Customer Update(Customer customer)
     {
-        return _customerRepository.Update(customer);
+        _unitOfWork.Customers.Update(customer);
+        _unitOfWork.SaveChangesAsync();
+        return customer;
     }
 
-    public bool Remove(Customer customer)
+    public void Remove(Customer customer)
     {
-        return _customerRepository.Remove(customer);
+        _unitOfWork.Customers.Remove(customer);
+        _unitOfWork.SaveChangesAsync();
     }
 
-    public IEnumerable<Customer> GetAll()
+    public async Task<IEnumerable<Customer>> GetAllAsync()
     {
-        return _customerRepository.GetAll();
+        return await _unitOfWork.Customers.GetAllAsync();
     }
 
-    public Customer GetById(int id)
+    public async Task<Customer?> GetByIdAsync(int id)
     {
-        return _customerRepository.GetById(id);
+        return await _unitOfWork.Customers.GetByIdAsync(id);
     }
 
-    public bool IsExist(int id)
+    public async Task<bool> IsExistAsync(int id)
     {
-        return _customerRepository.IsExist(id);
+        return await _unitOfWork.Customers.IsExistAsync(id);
     }
 }

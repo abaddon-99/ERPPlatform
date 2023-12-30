@@ -2,11 +2,11 @@ namespace ERP.Application.Interfaces.Services
 {
     public interface IBaseService<T>
     {
-        T Create(T value);
+        Task<T> CreateAsync(T value);
         T Update(T value);
-        bool Remove(T value);
-        IEnumerable<T> GetAll();
-        T? GetById(int id);
-        bool IsExist(int id);
+        void Remove(T value);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T?> GetByIdAsync(int id);
+        Task<bool> IsExistAsync(int id);
     }
 }

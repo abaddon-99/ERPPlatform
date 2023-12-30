@@ -2,10 +2,11 @@ using ERP.Application.Interfaces;
 using ERP.Application.Interfaces.Repositories;
 using ERP.Domain.Entities.Orders;
 using ERP.Infrastructure.Migrations;
+using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Infrastructure.Repositories;
 
-public class CustomerRepository : ICustomerRepository
+public class CustomerRepository : ICustomerRepository, IAsyncDisposable
 {
     private readonly ApplicationDbContext _applicationDbContext;
 
@@ -14,50 +15,77 @@ public class CustomerRepository : ICustomerRepository
         _applicationDbContext = applicationDbContext;
     }
 
-    public IEnumerable<Customer> GetAll()
+    public async Task<IEnumerable<Customer>> GetAllAsync()
     {
-        if (_applicationDbContext.Customers != null)
+        if (_applicationDbContext.Customers is null)
         {
-            return _applicationDbContext.Customers.ToList();
+            throw new NullReferenceException("Customers should not be null");
         }
 
-        return new List<Customer>();
+        return await _applicationDbContext.Customers.ToListAsync();
     }
 
-    public Customer Create(Customer customer)
+    public async Task<Customer> CreateAsync(Customer customer)
     {
-        _applicationDbContext.Customers?.Add(customer);
-        _applicationDbContext.SaveChanges();
-
+        if (_applicationDbContext.Customers is null)
+        {
+            throw new NullReferenceException("Customers should not be null");
+        }
+        
+        await _applicationDbContext.Customers.AddAsync(customer);
+        
         return customer;
     }
 
     public Customer Update(Customer customer)
     {
-        _applicationDbContext.Customers?.Update(customer);
-        _applicationDbContext.SaveChanges();
+        if (_applicationDbContext.Customers is null)
+        {
+            throw new NullReferenceException("Customers should not be null");
+        }
+        
+        _applicationDbContext.Customers.Update(customer);
 
         return customer;
     }
 
-    public bool Remove(Customer customer)
+    public void Remove(Customer customer)
     {
-        _applicationDbContext.Customers?.Remove(customer);
-        if (_applicationDbContext.SaveChanges() > 0)
+        if (_applicationDbContext.Customers is null)
         {
-            return true;
+            throw new NullReferenceException("Customers should not be null");
+        }
+        
+        _applicationDbContext.Customers.Remove(customer);
+    }
+
+    public async Task<Customer?> GetByIdAsync(int id)
+    {
+        if (_applicationDbContext.Customers is null)
+        {
+            throw new NullReferenceException("Customers should not be null");
+        }
+        
+        return await _applicationDbContext.Customers.FindAsync(id);
+    }
+
+    public async Task<bool> IsExistAsync(int id)
+    {
+        if (_applicationDbContext.Customers is null)
+        {
+            throw new NullReferenceException("Customers should not be null");
         }
 
-        return false;
+        return await _applicationDbContext.Customers.AnyAsync(customer => customer.Id.Equals(id));
     }
 
-    public Customer? GetById(int id)
+    public void Dispose()
     {
-        return _applicationDbContext.Customers?.Find(id);
+        _applicationDbContext.Dispose();
     }
 
-    public bool IsExist(int id)
+    public async ValueTask DisposeAsync()
     {
-        return (_applicationDbContext.Customers?.Any(customer => customer.Id == id)).GetValueOrDefault();
+        await _applicationDbContext.DisposeAsync();
     }
 }

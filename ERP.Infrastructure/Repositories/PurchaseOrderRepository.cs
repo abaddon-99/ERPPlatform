@@ -1,10 +1,11 @@
 using ERP.Application.Interfaces.Repositories;
 using ERP.Domain.Entities.Orders;
 using ERP.Infrastructure.Migrations;
+using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Infrastructure.Repositories;
 
-public class PurchaseOrderRepository : IPurchaseOrderRepository
+public class PurchaseOrderRepository : IPurchaseOrderRepository, IAsyncDisposable
 {
     private readonly ApplicationDbContext _applicationDbContext;
 
@@ -13,50 +14,77 @@ public class PurchaseOrderRepository : IPurchaseOrderRepository
         _applicationDbContext = applicationDbContext;
     }
 
-    public IEnumerable<PurchaseOrder> GetAll()
+    public async Task<IEnumerable<PurchaseOrder>> GetAllAsync()
     {
-        if (_applicationDbContext.PurchaseOrders != null)
+        if (_applicationDbContext.PurchaseOrders is null)
         {
-            return _applicationDbContext.PurchaseOrders.ToList();
+            throw new NullReferenceException("PurchaseOrders should not be null");
         }
-
-        return new List<PurchaseOrder>();
+        
+        return await _applicationDbContext.PurchaseOrders.ToListAsync();
     }
 
-    public PurchaseOrder Create(PurchaseOrder order)
+    public async Task<PurchaseOrder> CreateAsync(PurchaseOrder order)
     {
-        _applicationDbContext.PurchaseOrders?.Add(order);
-        _applicationDbContext.SaveChanges();
-
+        if (_applicationDbContext.PurchaseOrders is null)
+        {
+            throw new NullReferenceException("PurchaseOrders should not be null");
+        }
+        
+        await _applicationDbContext.PurchaseOrders.AddAsync(order);
+        
         return order;
     }
 
     public PurchaseOrder Update(PurchaseOrder order)
     {
-        _applicationDbContext.PurchaseOrders?.Update(order);
-        _applicationDbContext.SaveChanges();
+        if (_applicationDbContext.PurchaseOrders is null)
+        {
+            throw new NullReferenceException("PurchaseOrders should not be null");
+        }
+        
+        _applicationDbContext.PurchaseOrders.Update(order);
 
         return order;
     }
 
-    public bool Remove(PurchaseOrder order)
+    public void Remove(PurchaseOrder order)
     {
-        _applicationDbContext.PurchaseOrders?.Remove(order);
-        if (_applicationDbContext.SaveChanges() > 0)
+        if (_applicationDbContext.PurchaseOrders is null)
         {
-            return true;
+            throw new NullReferenceException("PurchaseOrders should not be null");
         }
-
-        return false;
+        
+        _applicationDbContext.PurchaseOrders.Remove(order);
     }
 
-    public PurchaseOrder? GetById(int id)
+    public async Task<PurchaseOrder?> GetByIdAsync(int id)
     {
-        return _applicationDbContext.PurchaseOrders?.Find(id);
+        if (_applicationDbContext.PurchaseOrders is null)
+        {
+            throw new NullReferenceException("PurchaseOrders should not be null");
+        }
+        
+        return await _applicationDbContext.PurchaseOrders.FindAsync(id);
     }
 
-    public bool IsExist(int id)
+    public async Task<bool> IsExistAsync(int id)
     {
-        return (_applicationDbContext.PurchaseOrders?.Any(order => order.Id == id)).GetValueOrDefault();
+        if (_applicationDbContext.PurchaseOrders is null)
+        {
+            throw new NullReferenceException("PurchaseOrders should not be null");
+        }
+        
+        return await _applicationDbContext.PurchaseOrders.AnyAsync(order => order.Id.Equals(id));
+    }
+
+    public void Dispose()
+    {
+        _applicationDbContext.Dispose();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await _applicationDbContext.DisposeAsync();
     }
 }

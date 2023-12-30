@@ -22,40 +22,50 @@ namespace ERP.WebAPI.Controllers
 
         // GET: api/PurchaseOrders
         [HttpGet]
-        public ActionResult<IEnumerable<PurchaseOrder>> Get()
+        public async Task<ActionResult<IEnumerable<PurchaseOrder>>> Get()
         {
-            var orders = _orderService.GetAll();
+            var orders = await _orderService.GetAllAsync();
             return Ok(orders);
         }
 
         // GET: api/PurchaseOrders/5
         [HttpGet("get/{id}")]
-        public ActionResult<PurchaseOrder> Get(int id)
+        public async Task<ActionResult<PurchaseOrder>> Get(int id)
         {
-            if (!_orderService.IsExist(id))
+            var isExist = await _orderService.IsExistAsync(id);
+            if (!isExist)
             {
                 return NotFound();
             }
-            return _orderService.GetById(id);
+            
+            var order = await _orderService.GetByIdAsync(id);
+            if (order is null)
+            {
+                return NotFound();
+            }
+
+            return order;
         }
 
         // POST: api/PurchaseOrders
         [HttpPost]
-        public ActionResult<PurchaseOrder> Post(PurchaseOrder order)
+        public async Task<ActionResult<PurchaseOrder>> Post(PurchaseOrder order)
         {
-            var newOrder = _orderService.Create(order);
+            var newOrder = await _orderService.CreateAsync(order);
             return Ok(newOrder);
         }
 
         // PUT: api/PurchaseOrders/5
         [HttpPut("{id}")]
-        public ActionResult<PurchaseOrder> Put(int id, PurchaseOrder order)
+        public async Task<ActionResult<PurchaseOrder>> Put(int id, PurchaseOrder order)
         {
             if (id != order.Id)
             {
                 return BadRequest();
             }
-            if (!_orderService.IsExist(id))
+
+            var isExist = await _orderService.IsExistAsync(id);
+            if (!isExist)
             {
                 return NotFound();
             }
@@ -65,16 +75,16 @@ namespace ERP.WebAPI.Controllers
 
         // DELETE: api/PurchaseOrders/5
         [HttpDelete("{id}")]
-        public ActionResult<bool> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var order = _orderService.GetById(id);
+            var order = await _orderService.GetByIdAsync(id);
             if (order == null)
             {
                 return NotFound();
             }
 
-            var isDeleted = _orderService.Remove(order);
-            return Ok(isDeleted);
+            _orderService.Remove(order);
+            return NoContent();
         }
     }
 }
