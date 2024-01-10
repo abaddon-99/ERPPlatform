@@ -14,6 +14,12 @@ public class UnitOfWork : IUnitOfWork
         Customers = new CustomerRepository(_applicationDbContext);
         SalesOrders = new SalesOrderRepository(_applicationDbContext);
         PurchaseOrders = new PurchaseOrderRepository(_applicationDbContext);
+        OrderItems = new OrderItemRepository(_applicationDbContext);
+        Categories = new CategoryRepository(_applicationDbContext);
+        Products = new ProductRepository(_applicationDbContext);
+        Suppliers = new SupplierRepository(_applicationDbContext);
+        Departments = new DepartmentRepository(_applicationDbContext);
+        Employees = new EmployeeRepository(_applicationDbContext);
         // _repositories = new Dictionary<Type, object>();
     }
 
@@ -30,6 +36,12 @@ public class UnitOfWork : IUnitOfWork
     public ICustomerRepository Customers { get; }
     public ISalesOrderRepository SalesOrders { get; }
     public IPurchaseOrderRepository PurchaseOrders { get; }
+    public IOrderItemRepository OrderItems { get; }
+    public ICategoryRepository Categories { get; }
+    public IProductRepository Products { get; }
+    public ISupplierRepository Suppliers { get; }
+    public IDepartmentRepository Departments { get; }
+    public IEmployeeRepository Employees { get; }
 
     // public IBaseRepository<T> Repository<T>() where T : class
     // {
