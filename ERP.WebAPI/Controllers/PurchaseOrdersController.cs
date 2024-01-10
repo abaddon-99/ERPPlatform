@@ -13,32 +13,23 @@ namespace ERP.WebAPI.Controllers
     [ApiController]
     public class PurchaseOrdersController : ControllerBase
     {
-        private readonly IPurchaseOrderService _orderService;
+        private readonly Lazy<IPurchaseOrderService> _orderService;
 
-        public PurchaseOrdersController(IPurchaseOrderService orderService)
+        public PurchaseOrdersController(Lazy<IPurchaseOrderService> orderService)
         {
             _orderService = orderService;
         }
 
-        // GET: api/PurchaseOrders
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<PurchaseOrder>>> Get()
-        {
-            var orders = await _orderService.GetAllAsync();
-            return Ok(orders);
-        }
-
-        // GET: api/PurchaseOrders/5
-        [HttpGet("get/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<PurchaseOrder>> Get(int id)
         {
-            var isExist = await _orderService.IsExistAsync(id);
+            var isExist = await _orderService.Value.IsExistAsync(id);
             if (!isExist)
             {
                 return NotFound();
             }
             
-            var order = await _orderService.GetByIdAsync(id);
+            var order = await _orderService.Value.GetByIdAsync(id);
             if (order is null)
             {
                 return NotFound();
@@ -47,43 +38,40 @@ namespace ERP.WebAPI.Controllers
             return order;
         }
 
-        // POST: api/PurchaseOrders
         [HttpPost]
-        public async Task<ActionResult<PurchaseOrder>> Post(PurchaseOrder order)
+        public async Task<ActionResult<PurchaseOrder>> Create(PurchaseOrder order)
         {
-            var newOrder = await _orderService.CreateAsync(order);
+            var newOrder = await _orderService.Value.CreateAsync(order);
             return Ok(newOrder);
         }
 
-        // PUT: api/PurchaseOrders/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<PurchaseOrder>> Put(int id, PurchaseOrder order)
+        public async Task<ActionResult<PurchaseOrder>> Update(int id, PurchaseOrder order)
         {
             if (id != order.Id)
             {
                 return BadRequest();
             }
 
-            var isExist = await _orderService.IsExistAsync(id);
+            var isExist = await _orderService.Value.IsExistAsync(id);
             if (!isExist)
             {
                 return NotFound();
             }
-            _orderService.Update(order);
+            _orderService.Value.Update(order);
             return Ok(order);
         }
 
-        // DELETE: api/PurchaseOrders/5
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var order = await _orderService.GetByIdAsync(id);
+            var order = await _orderService.Value.GetByIdAsync(id);
             if (order == null)
             {
                 return NotFound();
             }
 
-            _orderService.Remove(order);
+            _orderService.Value.Remove(order);
             return NoContent();
         }
     }

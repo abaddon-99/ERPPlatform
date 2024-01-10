@@ -1,9 +1,6 @@
 ﻿using System.Text.Json.Serialization;
-using ERP.Application.Interfaces.Repositories;
-using ERP.Application.Interfaces.Services;
-using ERP.Application.Services.Orders;
 using ERP.Infrastructure.Migrations;
-using ERP.Infrastructure.Repositories;
+using ERP.WebAPI.Extensions;
 using ERP.WebAPI.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -18,30 +15,21 @@ try
     var builder = WebApplication.CreateBuilder(args);
     builder.Host.UseSerilog();
 
-    // Add services to the container.
-
     builder.Services.AddControllers()
         .AddJsonOptions(o => o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
     
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")));
-
-    builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-    builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
-    builder.Services.AddScoped<ISalesOrderService, SalesOrderService>();
-    builder.Services.AddScoped<ICustomerService, CustomerService>();
-
-    builder.Services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
-    builder.Services.AddScoped<ISalesOrderRepository, SalesOrderRepository>();
-    builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+    builder.Services.AddUnitOfWork();
+    builder.Services.AddOrdersModule();
+    builder.Services.AddInventoryModule();
+    builder.Services.AddEmployeeModule();
 
     var app = builder.Build();
 
-    // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();

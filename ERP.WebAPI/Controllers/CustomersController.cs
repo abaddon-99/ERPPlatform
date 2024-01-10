@@ -9,29 +9,22 @@ namespace ERP.WebAPI.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly ICustomerService _customerService;
+        private readonly Lazy<ICustomerService> _customerService;
 
-        public CustomersController(ICustomerService customerService)
+        public CustomersController(Lazy<ICustomerService> customerService)
         {
             _customerService = customerService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> Get()
-        {
-            return Ok(await _customerService.GetAllAsync());
-        }
-
-        // GET: api/Customers/5
-        [HttpGet("get/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> Get(int id)
         {
-            var idIsExist = await _customerService.IsExistAsync(id);
+            var idIsExist = await _customerService.Value.IsExistAsync(id);
             if (!idIsExist)
             {
                 return NotFound();
             }
-            var customer = await _customerService.GetByIdAsync(id);
+            var customer = await _customerService.Value.GetByIdAsync(id);
             if (customer is null)
             {
                 return NotFound();
@@ -40,41 +33,38 @@ namespace ERP.WebAPI.Controllers
             return customer;
         }
 
-        // POST: api/Customers
         [HttpPost]
-        public async Task<ActionResult<Customer>> Post(Customer customer)
+        public async Task<ActionResult<Customer>> Create(Customer customer)
         {
-            return Ok(await _customerService.CreateAsync(customer));
+            return Ok(await _customerService.Value.CreateAsync(customer));
         }
 
-        // PUT: api/Customers/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<Customer>> Put(int id, Customer customer)
+        public async Task<ActionResult<Customer>> Update(int id, Customer customer)
         {
             if (id != customer.Id)
             {
                 return BadRequest();
             }
-            var idIsExist = await _customerService.IsExistAsync(id);
+            var idIsExist = await _customerService.Value.IsExistAsync(id);
             if (!idIsExist)
             {
                 return NotFound();
             }
-            _customerService.Update(customer);
-            return Ok(customer);
+            
+            return Ok(_customerService.Value.Update(customer));
         }
 
-        // DELETE: api/Customers/5
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var customer = await _customerService.GetByIdAsync(id);
+            var customer = await _customerService.Value.GetByIdAsync(id);
             if (customer == null)
             {
                 return NotFound();
             }
 
-            _customerService.Remove(customer);
+            _customerService.Value.Remove(customer);
             return NoContent();
         }
     }
