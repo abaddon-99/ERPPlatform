@@ -5,6 +5,7 @@ using ERP.Application.Services.Orders;
 using ERP.Infrastructure.Migrations;
 using ERP.Infrastructure.Repositories;
 using ERP.WebAPI.Middleware;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -26,7 +27,8 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
-    builder.Services.AddDbContext<ApplicationDbContext>();
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")));
 
     builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
     builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
